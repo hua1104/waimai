@@ -41,11 +41,16 @@ public class AuthController {
         String username = request.getUsername();
         String password = request.getPassword();
 
-        if (role == null || username == null || password == null) {
+        if (username == null || username.isBlank() || password == null || password.isBlank()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(Map.of("message", "用户名、密码和角色不能为空"));
+                    .body(Map.of("message", "用户名和密码不能为空"));
         }
 
+        if (role == null || role.isBlank()) {
+            return loginWithoutRole(username, password);
+        }
+
+        role = role.trim().toUpperCase();
         switch (role) {
             case "ADMIN": {
                 Optional<Admin> adminOpt = adminRepository.findByUsernameAndPassword(username, password);
@@ -125,6 +130,76 @@ public class AuthController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(Map.of("message", "不支持的角色类型"));
         }
+    }
+
+    private ResponseEntity<?> loginWithoutRole(String username, String password) {
+        Optional<Admin> adminOpt = adminRepository.findByUsernameAndPassword(username, password);
+        if (adminOpt.isPresent()) {
+            Admin admin = adminOpt.get();
+            if (!"ACTIVE".equalsIgnoreCase(admin.getStatus())) {
+                return unauthorized();
+            }
+            return ResponseEntity.ok(new LoginResponse(
+                    admin.getId(),
+                    "ADMIN",
+                    null,
+                    null,
+                    UUID.randomUUID().toString()
+            ));
+        }
+
+        Optional<RestaurantUser> ruOpt = restaurantUserRepository.findByUsernameAndPassword(username, password);
+        if (ruOpt.isPresent()) {
+            RestaurantUser ru = ruOpt.get();
+            if (!"ACTIVE".equalsIgnoreCase(ru.getStatus())) {
+                return unauthorized();
+            }
+            if (ru.getRestaurant() == null
+                    || ru.getRestaurant().getId() == null
+                    || (ru.getRestaurant().getStatus() != null && !"ACTIVE".equalsIgnoreCase(ru.getRestaurant().getStatus()))) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(Map.of("message", "饭店未通过认证或已停用"));
+            }
+            return ResponseEntity.ok(new LoginResponse(
+                    ru.getId(),
+                    "RESTAURANT",
+                    ru.getRestaurant() != null ? ru.getRestaurant().getId() : null,
+                    null,
+                    UUID.randomUUID().toString()
+            ));
+        }
+
+        Optional<Customer> cuOpt = customerRepository.findByUsernameAndPassword(username, password);
+        if (cuOpt.isPresent()) {
+            Customer cu = cuOpt.get();
+            if (!"ACTIVE".equalsIgnoreCase(cu.getStatus())) {
+                return unauthorized();
+            }
+            return ResponseEntity.ok(new LoginResponse(
+                    cu.getId(),
+                    "CUSTOMER",
+                    null,
+                    null,
+                    UUID.randomUUID().toString()
+            ));
+        }
+
+        Optional<DeliveryStaffUser> duOpt = deliveryStaffUserRepository.findByUsernameAndPassword(username, password);
+        if (duOpt.isPresent()) {
+            DeliveryStaffUser du = duOpt.get();
+            if (!"ACTIVE".equalsIgnoreCase(du.getStatus())) {
+                return unauthorized();
+            }
+            return ResponseEntity.ok(new LoginResponse(
+                    du.getId(),
+                    "DELIVERY",
+                    null,
+                    du.getDeliveryStaff() != null ? du.getDeliveryStaff().getId() : null,
+                    UUID.randomUUID().toString()
+            ));
+        }
+
+        return unauthorized();
     }
 
     private ResponseEntity<Map<String, String>> unauthorized() {

@@ -69,10 +69,14 @@ function logout() {
 
 .layout-sider {
   width: 220px;
-  background-color: #001529;
-  color: #fff;
+  background:
+    radial-gradient(900px 520px at 20% 10%, rgba(249, 115, 22, 0.18), transparent 55%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.72) 100%);
+  color: var(--text);
   display: flex;
   flex-direction: column;
+  border-right: 1px solid var(--border);
+  backdrop-filter: blur(14px);
 }
 
 .logo {
@@ -80,8 +84,10 @@ function logout() {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-weight: 900;
+  letter-spacing: 0.6px;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  color: var(--text);
 }
 
 .menu {
@@ -92,15 +98,31 @@ function logout() {
 }
 
 .menu a {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(15, 23, 42, 0.78);
   text-decoration: none;
   padding: 10px 14px;
-  border-radius: 4px;
+  border-radius: 12px;
   font-size: 14px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.5);
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    box-shadow 120ms ease,
+    transform 120ms ease;
 }
 
 .menu a.router-link-active {
-  background-color: #1890ff;
+  background: var(--primary-soft);
+  border-color: rgba(249, 115, 22, 0.22);
+  color: var(--primary-600);
+  box-shadow: 0 12px 30px rgba(249, 115, 22, 0.14);
+}
+
+.menu a:hover {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(15, 23, 42, 0.12);
+  transform: translateY(-1px);
 }
 
 .layout-main {
@@ -115,14 +137,15 @@ function logout() {
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.76);
+  backdrop-filter: blur(14px);
 }
 
 .layout-content {
   flex: 1;
-  padding: 16px;
-  background-color: #f5f5f5;
+  padding: 18px;
+  background-color: transparent;
   overflow: auto;
 }
 
@@ -133,11 +156,12 @@ function logout() {
 }
 
 .logout-btn {
-  padding: 4px 10px;
-  border-radius: 4px;
-  border: 1px solid #d9d9d9;
-  background-color: #fff;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background: rgba(255, 255, 255, 0.7);
   cursor: pointer;
   font-size: 12px;
+  color: rgba(15, 23, 42, 0.8);
 }
 </style>

@@ -99,6 +99,9 @@
                   >
                     送达完成
                   </button>
+                  <button v-if="o.status === 'DELIVERING'" class="btn danger" @click="confirmCancel(o.id)">
+                    取消配送
+                  </button>
                 </td>
               </tr>
               <tr v-if="!loading && orders.length === 0">
@@ -131,6 +134,7 @@
                 <b>订单坐标</b>：{{ detail.deliveryLat.toFixed(6) }}, {{ detail.deliveryLng.toFixed(6) }}
               </div>
               <div><b>联系人</b>：{{ detail.contactName }} {{ detail.contactPhone }}</div>
+              <div v-if="detail.remark"><b>备注</b>：{{ detail.remark }}</div>
             </div>
 
             <div class="route">
@@ -246,6 +250,7 @@ interface OrderDetail {
   createdAt: string
   paidAt: string
   finishedAt: string
+  remark: string | null
   addressDetail: string | null
   deliveryLat: number | null
   deliveryLng: number | null
@@ -474,6 +479,24 @@ async function openDetail(id: number) {
 
 async function confirmComplete(id: number) {
   await updateOrderStatus(id, 'COMPLETED', '确认已送达并完成该订单？', '已完成订单')
+}
+
+async function confirmCancel(id: number) {
+  if (!deliveryStaffId.value) return
+  if (!confirm('确认取消配送并释放该订单（其他骑手可重新抢单）？')) return
+  msg.value = ''
+  const res = await fetch(api(`/api/rider/orders/${id}/cancel?deliveryStaffId=${deliveryStaffId.value}`), {
+    method: 'POST',
+  })
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}))
+    msg.value = data.message ?? '操作失败'
+    return
+  }
+  msg.value = '已取消配送，订单已释放'
+  if (detail.value?.id === id) detail.value = null
+  await loadOrders(page.value)
+  await loadStats()
 }
 
 async function confirmStartDelivering(id: number) {

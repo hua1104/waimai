@@ -17,7 +17,7 @@
 
         <div v-else>
           <div class="grid2">
-            <section class="panel">
+            <section class="card panel">
               <div class="panel-head">
                 <h3 class="sub">基本信息</h3>
                 <div class="chips">
@@ -53,7 +53,7 @@
               </div>
             </section>
 
-            <section class="panel">
+            <section class="card panel">
               <div class="panel-head">
                 <h3 class="sub">修改密码</h3>
                 <div class="hint">至少 6 位，建议包含字母+数字</div>
@@ -90,6 +90,7 @@
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { api } from '../../lib/api'
 
 interface ProfileRow {
   id: number
@@ -137,10 +138,6 @@ const canSavePwd = computed(() => {
   if (pwd.newPassword.length < 6) return false
   return pwd.newPassword === pwd.confirmPassword
 })
-
-function api(path: string) {
-  return `http://localhost:8081${path}`
-}
 
 function logout() {
   localStorage.removeItem('currentUser')
@@ -254,66 +251,47 @@ onMounted(() => {
 <style scoped>
 .page {
   min-height: 100vh;
-  background: #f5f5f5;
+  background: var(--bg);
 }
 
 .topbar {
-  height: 56px;
-  background: #fff;
-  border-bottom: 1px solid #f0f0f0;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.78);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(14px);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 16px;
+  padding: 14px 16px;
+  gap: 12px;
 }
 
 .title {
-  font-weight: 700;
+  font-weight: 900;
+  letter-spacing: 0.5px;
 }
 
 .actions {
   display: flex;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
   align-items: center;
 }
 
-.btn {
-  padding: 6px 10px;
-  border-radius: 4px;
-  border: 1px solid #d9d9d9;
-  background: #fff;
-  cursor: pointer;
-  font-size: 13px;
-  text-decoration: none;
-  color: #333;
-}
-
-.btn.primary {
-  border-color: #1890ff;
-  background: #1890ff;
-  color: #fff;
-}
-
-.btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
 .content {
-  padding: 12px;
+  padding: 18px 16px 28px;
   max-width: 1100px;
   margin: 0 auto;
 }
 
 .card {
-  background: #fff;
-  border-radius: 10px;
   padding: 14px;
-  border: 1px solid #f0f0f0;
 }
 
 .warn {
-  color: #ff4d4f;
+  color: var(--danger);
 }
 
 .grid2 {
@@ -329,10 +307,7 @@ onMounted(() => {
 }
 
 .panel {
-  border: 1px solid #f0f0f0;
-  border-radius: 10px;
   padding: 12px;
-  background: #fafafa;
 }
 
 .panel-head {
@@ -350,7 +325,7 @@ onMounted(() => {
 
 .hint {
   font-size: 12px;
-  color: #666;
+  color: var(--muted);
   margin-top: 2px;
 }
 
@@ -359,15 +334,6 @@ onMounted(() => {
   gap: 8px;
   flex-wrap: wrap;
   justify-content: flex-end;
-}
-
-.tag {
-  font-size: 12px;
-  border: 1px solid #d9d9d9;
-  border-radius: 999px;
-  padding: 2px 8px;
-  color: #666;
-  background: #fff;
 }
 
 .form {
@@ -389,20 +355,12 @@ label {
 
 label > span {
   font-size: 12px;
-  color: #666;
-}
-
-input {
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid #d9d9d9;
-  font-size: 13px;
-  background: #fff;
+  color: var(--muted);
 }
 
 input:disabled {
-  background: #f5f5f5;
-  color: #888;
+  background: rgba(15, 23, 42, 0.04);
+  color: rgba(15, 23, 42, 0.55);
 }
 
 .panel-foot {

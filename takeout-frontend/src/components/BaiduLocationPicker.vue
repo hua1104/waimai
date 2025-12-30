@@ -1,20 +1,27 @@
 <template>
-  <div class="wrap">
-    <div class="row">
-      <input v-model="query" class="input" placeholder="输入地址关键字（如：山东大学中心校区）" />
+  <div class="wrap" :class="{ compact: !!props.compact }">
+    <div v-if="!props.compact" class="row">
+      <input v-model="query" class="query" placeholder="输入地址关键字（如：山东大学中心校区）" />
       <button class="btn" :disabled="!ak" @click="search">搜索</button>
       <button class="btn" :disabled="!ak" @click="open">地图选点</button>
       <button class="btn" :disabled="!ak" @click="useGeo">使用当前位置</button>
+    </div>
+    <div v-else class="compact-row">
+      <input v-model="query" class="compact-query" placeholder="搜索地点（如：xx小区）" />
+      <button class="btn" :disabled="!ak || !query.trim()" @click="search">搜索</button>
+      <button class="btn" :disabled="!ak" @click="open">地图选点</button>
+      <button class="btn" :disabled="!ak" @click="useGeo">使用当前位置</button>
+      <button v-if="selected" class="btn" @click="emitClear">清除定位</button>
     </div>
     <div v-if="!ak" class="hint">
       未配置百度地图 Key：请在 `takeout-frontend/.env` 添加 `VITE_BAIDU_MAP_AK=你的AK` 后重启前端。
     </div>
     <div v-if="loadErr" class="hint err">{{ loadErr }}</div>
-    <div v-if="selected" class="selected">
-      <span class="tag">已选</span>
+    <div v-if="selected" class="selected" :class="{ compact: !!props.compact }">
+      <span class="tag ok">已选</span>
       <span class="text">{{ selected.address }}</span>
       <span class="coord">({{ selected.lat.toFixed(6) }}, {{ selected.lng.toFixed(6) }})</span>
-      <button class="mini" @click="emitClear">清除</button>
+      <button v-if="!props.compact" class="mini" @click="emitClear">清除</button>
     </div>
 
     <div v-if="visible" class="mask" @click.self="close">
@@ -43,6 +50,7 @@ type Picked = { address: string; lat: number; lng: number }
 
 const props = defineProps<{
   modelValue: Picked | null
+  compact?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -256,38 +264,51 @@ onBeforeUnmount(() => {
   gap: 8px;
 }
 
+.wrap.compact {
+  gap: 6px;
+}
+
 .row {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
 }
 
-.input {
+.query {
   flex: 1;
   min-width: 220px;
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid #d9d9d9;
 }
 
-.btn {
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid #d9d9d9;
-  background: #fff;
-  cursor: pointer;
-  font-size: 13px;
+.compact-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+  gap: 8px;
+  align-items: center;
 }
 
-.btn.primary {
-  border-color: #1677ff;
-  background: #1677ff;
-  color: #fff;
+.compact-query {
+  min-width: 160px;
 }
 
-.btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.selected.compact .coord {
+  display: none;
+}
+
+.selected.compact .text {
+  max-width: 80vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  .compact-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .compact-query {
+    grid-column: 1 / -1;
+  }
 }
 
 .hint {
@@ -307,13 +328,9 @@ onBeforeUnmount(() => {
   font-size: 13px;
 }
 
-.tag {
+.selected.compact {
+  gap: 6px;
   font-size: 12px;
-  border: 1px solid #b7eb8f;
-  color: #389e0d;
-  border-radius: 999px;
-  padding: 2px 8px;
-  background: #fff;
 }
 
 .coord {
@@ -322,11 +339,6 @@ onBeforeUnmount(() => {
 }
 
 .mini {
-  padding: 6px 10px;
-  border-radius: 8px;
-  border: 1px solid #d9d9d9;
-  background: #fff;
-  cursor: pointer;
   font-size: 12px;
 }
 

@@ -79,6 +79,7 @@
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { api } from '../../lib/api'
 
 interface AddressRow {
   id: number
@@ -112,10 +113,6 @@ const form = reactive({
   contactPhone: '',
   isDefault: false,
 })
-
-function api(path: string) {
-  return `http://localhost:8081${path}`
-}
 
 function logout() {
   localStorage.removeItem('currentUser')
@@ -223,58 +220,47 @@ onMounted(() => {
 <style scoped>
 .page {
   min-height: 100vh;
-  background: #f5f5f5;
+  background: var(--bg);
 }
 
 .topbar {
-  height: 56px;
-  background: #fff;
-  border-bottom: 1px solid #f0f0f0;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.78);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(14px);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 16px;
+  padding: 14px 16px;
+  gap: 12px;
 }
 
 .title {
-  font-weight: 700;
+  font-weight: 900;
+  letter-spacing: 0.5px;
 }
 
 .actions {
   display: flex;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
   align-items: center;
 }
 
-.btn {
-  padding: 6px 10px;
-  border-radius: 4px;
-  border: 1px solid #d9d9d9;
-  background: #fff;
-  cursor: pointer;
-  font-size: 13px;
-  text-decoration: none;
-  color: #333;
-}
-
-.btn.primary {
-  border-color: #1890ff;
-  background: #1890ff;
-  color: #fff;
-}
-
 .content {
-  padding: 12px;
+  padding: 18px 16px 28px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .card {
-  background: #fff;
-  border-radius: 6px;
   padding: 12px;
 }
 
 .warn {
-  color: #ff4d4f;
+  color: var(--danger);
 }
 
 .row {
@@ -286,9 +272,6 @@ onMounted(() => {
 }
 
 input {
-  padding: 6px 8px;
-  border-radius: 4px;
-  border: 1px solid #d9d9d9;
   min-width: 160px;
 }
 
@@ -297,66 +280,20 @@ input {
   gap: 6px;
   align-items: center;
   font-size: 13px;
-  color: #333;
-}
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
-}
-
-.table th,
-.table td {
-  border: 1px solid #f0f0f0;
-  padding: 8px 10px;
-  text-align: left;
-  vertical-align: top;
-}
-
-.table thead {
-  background-color: #fafafa;
+  color: rgba(15, 23, 42, 0.8);
 }
 
 .actions-cell {
   width: 140px;
 }
 
-.mini {
-  padding: 4px 8px;
-  border-radius: 4px;
-  border: 1px solid #d9d9d9;
-  background: #fff;
-  cursor: pointer;
-  font-size: 12px;
-  margin-right: 6px;
-}
-
-.mini.danger {
-  border-color: #ff4d4f;
-  color: #ff4d4f;
-}
-
-.tag {
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 999px;
-  border: 1px solid #d9d9d9;
-  font-size: 12px;
-}
-
-.tag.ok {
-  border-color: #52c41a;
-  color: #52c41a;
-}
-
 .empty {
   text-align: center;
-  color: #888;
+  color: var(--muted);
 }
 
 .msg {
   margin-top: 10px;
-  color: #ff4d4f;
+  color: var(--danger);
 }
 </style>

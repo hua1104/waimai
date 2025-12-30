@@ -79,6 +79,9 @@ public class CustomerOrder {
     @Column(name = "contact_phone", length = 20)
     private String contactPhone;
 
+    @Column(name = "remark", length = 255)
+    private String remark;
+
     @Column(name = "delivery_lat")
     private Double deliveryLat;
 
@@ -262,6 +265,14 @@ public class CustomerOrder {
 
     public void setContactPhone(String contactPhone) {
         this.contactPhone = contactPhone;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public Double getDeliveryLat() {

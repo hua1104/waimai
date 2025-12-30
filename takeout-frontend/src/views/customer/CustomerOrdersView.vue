@@ -91,6 +91,7 @@
             <div v-if="detail.cancelReason"><b>取消原因</b>：{{ detail.cancelReason }}</div>
             <div><b>地址</b>：{{ detail.addressDetail ?? '' }}</div>
             <div><b>联系人</b>：{{ detail.contactName }} {{ detail.contactPhone }}</div>
+            <div v-if="detail.remark"><b>备注</b>：{{ detail.remark }}</div>
             <div v-if="detail.deliveryStaffName || detail.deliveryStaffPhone">
               <b>骑手</b>：{{ detail.deliveryStaffName }} {{ detail.deliveryStaffPhone }}
             </div>
@@ -120,8 +121,8 @@
           <div v-if="detail.status === 'COMPLETED'" class="rate">
             <h4 class="sub">评价</h4>
             <div v-if="ratingLoading" class="empty">加载评价状态...</div>
-            <div v-else class="rate-grid">
-              <div class="rate-card">
+              <div v-else class="rate-grid">
+              <div class="card rate-card">
                 <div class="rate-title">
                   <b>饭店评价</b>
                   <span v-if="ratingStatus?.restaurantRated" class="tag ok">已评价</span>
@@ -152,7 +153,7 @@
                 </div>
               </div>
 
-              <div class="rate-card">
+              <div class="card rate-card">
                 <div class="rate-title">
                   <b>骑手评价</b>
                   <span v-if="ratingStatus?.hasDeliveryStaff === false" class="tag warn">无骑手</span>
@@ -199,6 +200,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { api } from '../../lib/api'
 
 interface OrderListItem {
   id: number
@@ -242,6 +244,7 @@ interface OrderDetail {
   addressDetail: string | null
   contactName: string | null
   contactPhone: string | null
+  remark: string | null
   deliveryStaffId: number | null
   deliveryStaffName: string | null
   deliveryStaffPhone: string | null
@@ -277,10 +280,6 @@ const customerId = computed<number | null>(() => {
     return null
   }
 })
-
-function api(path: string) {
-  return `http://localhost:8081${path}`
-}
 
 function logout() {
   localStorage.removeItem('currentUser')
@@ -425,37 +424,43 @@ onMounted(() => loadOrders(1))
 <style scoped>
 .page {
   min-height: 100vh;
-  background: #f5f5f5;
+  background: var(--bg);
 }
 
 .topbar {
-  height: 56px;
-  background: #fff;
-  border-bottom: 1px solid #f0f0f0;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.78);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(14px);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 16px;
+  padding: 14px 16px;
+  gap: 12px;
 }
 
 .title {
-  font-weight: 700;
+  font-weight: 900;
+  letter-spacing: 0.5px;
 }
 
 .actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   align-items: center;
 }
 
 .content {
-  padding: 12px;
+  padding: 18px 16px 28px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .card {
   padding: 16px;
-  background-color: #fff;
-  border-radius: 6px;
 }
 
 .filters {
@@ -463,6 +468,7 @@ onMounted(() => loadOrders(1))
   gap: 12px;
   align-items: end;
   margin-bottom: 12px;
+  flex-wrap: wrap;
 }
 
 label {
@@ -470,53 +476,7 @@ label {
   flex-direction: column;
   gap: 6px;
   font-size: 13px;
-  color: #333;
-}
-
-select {
-  padding: 6px 8px;
-  border-radius: 4px;
-  border: 1px solid #d9d9d9;
-}
-
-.btn {
-  padding: 6px 10px;
-  border-radius: 4px;
-  border: 1px solid #d9d9d9;
-  background: #fff;
-  cursor: pointer;
-  font-size: 13px;
-  text-decoration: none;
-  color: #333;
-}
-
-.btn.primary {
-  border-color: #1890ff;
-  background: #1890ff;
-  color: #fff;
-}
-
-.btn.danger {
-  border-color: #ff4d4f;
-  color: #ff4d4f;
-  background: #fff;
-}
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-
-.table th,
-.table td {
-  border: 1px solid #f0f0f0;
-  padding: 8px 10px;
-  text-align: left;
-}
-
-.table thead {
-  background-color: #fafafa;
+  color: var(--muted);
 }
 
 .actions-cell {
@@ -527,7 +487,7 @@ select {
 
 .empty {
   text-align: center;
-  color: #999;
+  color: var(--muted);
 }
 
 .pager {
@@ -539,7 +499,7 @@ select {
 
 .detail {
   margin-top: 16px;
-  border-top: 1px solid #f0f0f0;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
   padding-top: 16px;
 }
 
@@ -557,6 +517,16 @@ select {
   font-size: 13px;
 }
 
+.grid b {
+  color: rgba(15, 23, 42, 0.82);
+}
+
+@media (max-width: 920px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .sub {
   margin: 10px 0 6px;
 }
@@ -572,8 +542,6 @@ select {
 }
 
 .rate-card {
-  border: 1px solid #f0f0f0;
-  border-radius: 8px;
   padding: 12px;
 }
 
@@ -582,24 +550,6 @@ select {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 10px;
-}
-
-.tag {
-  font-size: 12px;
-  border: 1px solid #d9d9d9;
-  border-radius: 999px;
-  padding: 2px 8px;
-  color: #666;
-}
-
-.tag.ok {
-  border-color: #b7eb8f;
-  color: #389e0d;
-}
-
-.tag.warn {
-  border-color: #ffe58f;
-  color: #d48806;
 }
 
 .rate-row {
@@ -616,16 +566,12 @@ select {
 
 textarea {
   min-height: 72px;
-  padding: 6px 8px;
-  border-radius: 4px;
-  border: 1px solid #d9d9d9;
   resize: vertical;
-  font-size: 13px;
 }
 
 .msg {
   margin-top: 10px;
-  color: #389e0d;
+  color: rgb(21, 128, 61);
   font-size: 13px;
 }
 </style>

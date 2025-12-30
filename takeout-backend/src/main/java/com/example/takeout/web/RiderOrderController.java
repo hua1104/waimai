@@ -325,6 +325,7 @@ public class RiderOrderController {
                 order.getCreatedAt(),
                 order.getPaidAt(),
                 order.getFinishedAt(),
+                order.getRemark(),
                 order.getAddressDetail(),
                 order.getDeliveryLat(),
                 order.getDeliveryLng(),
@@ -382,6 +383,36 @@ public class RiderOrderController {
         decrementLoadIfPossible(order.getDeliveryStaff());
 
         return ResponseEntity.ok(Map.of("status", "OK"));
+    }
+
+    @PostMapping("/orders/{id}/cancel")
+    @Transactional
+    public ResponseEntity<?> cancelDelivery(@PathVariable("id") Long id,
+                                            @RequestParam("deliveryStaffId") Long deliveryStaffId) {
+        Optional<CustomerOrder> orderOpt = customerOrderRepository.findById(id);
+        if (orderOpt.isEmpty()) return ResponseEntity.notFound().build();
+        CustomerOrder order = orderOpt.get();
+
+        if (order.getDeliveryStaff() == null || order.getDeliveryStaff().getId() == null
+                || !order.getDeliveryStaff().getId().equals(deliveryStaffId)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        String current = order.getStatus() == null ? "" : order.getStatus().trim().toUpperCase();
+        if (!"DELIVERING".equals(current)) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(Map.of("message", "仅当订单为 DELIVERING 时才能取消配送"));
+        }
+
+        DeliveryStaff assigned = order.getDeliveryStaff();
+        order.setDeliveryStaff(null);
+        order.setStatus("PAID");
+        order.setFinishedAt(null);
+        customerOrderRepository.save(order);
+
+        decrementLoadIfPossible(assigned);
+
+        return ResponseEntity.ok(Map.of("status", "OK", "statusAfter", "PAID"));
     }
 
     private void decrementLoadIfPossible(DeliveryStaff staff) {
@@ -652,6 +683,7 @@ public class RiderOrderController {
         private final LocalDateTime createdAt;
         private final LocalDateTime paidAt;
         private final LocalDateTime finishedAt;
+        private final String remark;
         private final String addressDetail;
         private final Double deliveryLat;
         private final Double deliveryLng;
@@ -672,6 +704,7 @@ public class RiderOrderController {
                            LocalDateTime createdAt,
                            LocalDateTime paidAt,
                            LocalDateTime finishedAt,
+                           String remark,
                            String addressDetail,
                            Double deliveryLat,
                            Double deliveryLng,
@@ -691,6 +724,7 @@ public class RiderOrderController {
             this.createdAt = createdAt;
             this.paidAt = paidAt;
             this.finishedAt = finishedAt;
+            this.remark = remark;
             this.addressDetail = addressDetail;
             this.deliveryLat = deliveryLat;
             this.deliveryLng = deliveryLng;
@@ -749,6 +783,10 @@ public class RiderOrderController {
 
         public LocalDateTime getFinishedAt() {
             return finishedAt;
+        }
+
+        public String getRemark() {
+            return remark;
         }
 
         public String getAddressDetail() {

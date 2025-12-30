@@ -41,6 +41,7 @@
           <th>饭店</th>
           <th>食客</th>
           <th>金额</th>
+          <th>备注</th>
           <th>状态</th>
           <th>支付</th>
           <th>创建时间</th>
@@ -54,6 +55,7 @@
           <td>{{ o.restaurantName }}</td>
           <td>{{ o.customerUsername }}</td>
           <td>{{ o.payAmount ?? 0 }}</td>
+          <td>{{ o.remark || '—' }}</td>
           <td>{{ o.status }}</td>
           <td>
             {{ o.payStatus }}
@@ -127,6 +129,7 @@
         <div v-if="detail.contactName || detail.contactPhone">
           <b>联系人</b>：{{ detail.contactName }} {{ detail.contactPhone }}
         </div>
+        <div v-if="detail.remark"><b>备注</b>：{{ detail.remark }}</div>
         <div v-if="detail.deliveryStaffName || detail.deliveryStaffPhone">
           <b>骑手</b>：{{ detail.deliveryStaffName }} {{ detail.deliveryStaffPhone }}
         </div>
@@ -204,6 +207,7 @@ interface OrderListItem {
   status: string
   payStatus: string
   payAmount: number
+  remark: string | null
   createdAt: string
   paidAt: string | null
 }
@@ -244,6 +248,7 @@ interface OrderDetail {
   deliveryLng: number | null
   contactName: string | null
   contactPhone: string | null
+  remark: string | null
   deliveryStaffId: number | null
   deliveryStaffName: string | null
   deliveryStaffPhone: string | null

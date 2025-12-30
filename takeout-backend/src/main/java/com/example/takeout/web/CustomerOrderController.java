@@ -138,6 +138,7 @@ public class CustomerOrderController {
         order.setAddressDetail(request.getAddressDetail());
         order.setContactName(request.getContactName());
         order.setContactPhone(request.getContactPhone());
+        order.setRemark(safe(request.getRemark(), 255));
         order.setDeliveryLat(request.getDeliveryLat());
         order.setDeliveryLng(request.getDeliveryLng());
 
@@ -413,6 +414,7 @@ public class CustomerOrderController {
                 order.getAddressDetail(),
                 order.getContactName(),
                 order.getContactPhone(),
+                order.getRemark(),
                 deliveryStaffId,
                 deliveryStaffName,
                 deliveryStaffPhone,
@@ -504,6 +506,7 @@ public class CustomerOrderController {
         private String addressDetail;
         private String contactName;
         private String contactPhone;
+        private String remark;
         private Double deliveryLat;
         private Double deliveryLng;
         private List<CreateOrderItem> items;
@@ -549,6 +552,14 @@ public class CustomerOrderController {
 
         public void setContactPhone(String contactPhone) {
             this.contactPhone = contactPhone;
+        }
+
+        public String getRemark() {
+            return remark;
+        }
+
+        public void setRemark(String remark) {
+            this.remark = remark;
         }
 
         public Double getDeliveryLat() {
@@ -848,6 +859,7 @@ public class CustomerOrderController {
         private final String addressDetail;
         private final String contactName;
         private final String contactPhone;
+        private final String remark;
         private final Long deliveryStaffId;
         private final String deliveryStaffName;
         private final String deliveryStaffPhone;
@@ -868,6 +880,7 @@ public class CustomerOrderController {
                            String addressDetail,
                            String contactName,
                            String contactPhone,
+                           String remark,
                            Long deliveryStaffId,
                            String deliveryStaffName,
                            String deliveryStaffPhone,
@@ -887,6 +900,7 @@ public class CustomerOrderController {
             this.addressDetail = addressDetail;
             this.contactName = contactName;
             this.contactPhone = contactPhone;
+            this.remark = remark;
             this.deliveryStaffId = deliveryStaffId;
             this.deliveryStaffName = deliveryStaffName;
             this.deliveryStaffPhone = deliveryStaffPhone;
@@ -951,6 +965,10 @@ public class CustomerOrderController {
 
         public String getContactPhone() {
             return contactPhone;
+        }
+
+        public String getRemark() {
+            return remark;
         }
 
         public Long getDeliveryStaffId() {

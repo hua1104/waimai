@@ -65,6 +65,7 @@ public interface CustomerOrderRepository extends JpaRepository<CustomerOrder, Lo
         String getStatus();
         String getPayStatus();
         BigDecimal getPayAmount();
+        String getRemark();
         LocalDateTime getCreatedAt();
         LocalDateTime getPaidAt();
     }
@@ -78,6 +79,7 @@ public interface CustomerOrderRepository extends JpaRepository<CustomerOrder, Lo
                    o.status as status,
                    o.payStatus as payStatus,
                    o.payAmount as payAmount,
+                   o.remark as remark,
                    o.createdAt as createdAt,
                    o.paidAt as paidAt
             from CustomerOrder o

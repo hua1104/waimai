@@ -25,11 +25,11 @@
         </div>
 
         <div class="summary">
-          <div class="box">
+          <div class="card box">
             <div class="k">订单数</div>
             <div class="v">{{ data?.totalOrders ?? 0 }}</div>
           </div>
-          <div class="box">
+          <div class="card box">
             <div class="k">消费金额（已支付）</div>
             <div class="v">¥{{ Number(data?.totalSpend ?? 0).toFixed(2) }}</div>
           </div>
@@ -100,6 +100,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { api } from '../../lib/api'
 
 interface StatusCountRow {
   status: string
@@ -147,10 +148,6 @@ const customerId = computed<number | null>(() => {
   }
 })
 
-function api(path: string) {
-  return `http://localhost:8081${path}`
-}
-
 function logout() {
   localStorage.removeItem('currentUser')
   localStorage.removeItem('role')
@@ -184,37 +181,43 @@ onMounted(load)
 <style scoped>
 .page {
   min-height: 100vh;
-  background: #f5f5f5;
+  background: var(--bg);
 }
 
 .topbar {
-  height: 56px;
-  background: #fff;
-  border-bottom: 1px solid #f0f0f0;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.78);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(14px);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 16px;
+  padding: 14px 16px;
+  gap: 12px;
 }
 
 .title {
-  font-weight: 700;
+  font-weight: 900;
+  letter-spacing: 0.5px;
 }
 
 .actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   align-items: center;
 }
 
 .content {
-  padding: 12px;
+  padding: 18px 16px 28px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .card {
   padding: 16px;
-  background-color: #fff;
-  border-radius: 6px;
 }
 
 .filters {
@@ -230,30 +233,7 @@ label {
   flex-direction: column;
   gap: 6px;
   font-size: 13px;
-  color: #333;
-}
-
-input {
-  padding: 6px 8px;
-  border-radius: 4px;
-  border: 1px solid #d9d9d9;
-}
-
-.btn {
-  padding: 6px 10px;
-  border-radius: 4px;
-  border: 1px solid #d9d9d9;
-  background: #fff;
-  cursor: pointer;
-  font-size: 13px;
-  text-decoration: none;
-  color: #333;
-}
-
-.btn.primary {
-  border-color: #1890ff;
-  background: #1890ff;
-  color: #fff;
+  color: var(--muted);
 }
 
 .summary {
@@ -264,14 +244,12 @@ input {
 }
 
 .box {
-  border: 1px solid #f0f0f0;
-  border-radius: 8px;
-  padding: 12px;
+  padding: 14px;
 }
 
 .k {
   font-size: 12px;
-  color: #666;
+  color: var(--muted);
 }
 
 .v {
@@ -291,22 +269,8 @@ input {
   margin-bottom: 12px;
 }
 
-.chip {
-  border: 1px solid #f0f0f0;
-  border-radius: 999px;
-  padding: 6px 10px;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  font-size: 13px;
-}
-
-.chip .name {
-  color: #333;
-}
-
 .chip .count {
-  color: #1890ff;
+  color: var(--primary-600);
   font-weight: 700;
 }
 
@@ -316,32 +280,15 @@ input {
   gap: 12px;
 }
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-
-.table th,
-.table td {
-  border: 1px solid #f0f0f0;
-  padding: 8px 10px;
-  text-align: left;
-}
-
-.table thead {
-  background-color: #fafafa;
-}
-
 .empty {
   text-align: center;
-  color: #999;
+  color: var(--muted);
   padding: 10px 0;
 }
 
 .msg {
   margin-top: 10px;
-  color: #ff4d4f;
+  color: var(--danger);
   font-size: 13px;
 }
 </style>

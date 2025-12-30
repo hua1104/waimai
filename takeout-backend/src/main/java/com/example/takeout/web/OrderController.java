@@ -75,6 +75,7 @@ public class OrderController {
                         p.getStatus(),
                         p.getPayStatus(),
                         p.getPayAmount(),
+                        p.getRemark(),
                         p.getCreatedAt(),
                         p.getPaidAt()
                 ))
@@ -132,6 +133,7 @@ public class OrderController {
                 order.getDeliveryLng(),
                 order.getContactName(),
                 order.getContactPhone(),
+                order.getRemark(),
                 deliveryStaffId,
                 deliveryStaffName,
                 deliveryStaffPhone,
@@ -298,6 +300,7 @@ public class OrderController {
         private final String status;
         private final String payStatus;
         private final BigDecimal payAmount;
+        private final String remark;
         private final LocalDateTime createdAt;
         private final LocalDateTime paidAt;
 
@@ -306,11 +309,12 @@ public class OrderController {
                              String restaurantName,
                              Long customerId,
                              String customerUsername,
-                             String status,
-                             String payStatus,
-                             BigDecimal payAmount,
-                             LocalDateTime createdAt,
-                             LocalDateTime paidAt) {
+                           String status,
+                           String payStatus,
+                           BigDecimal payAmount,
+                           String remark,
+                           LocalDateTime createdAt,
+                           LocalDateTime paidAt) {
             this.id = id;
             this.restaurantId = restaurantId;
             this.restaurantName = restaurantName;
@@ -319,6 +323,7 @@ public class OrderController {
             this.status = status;
             this.payStatus = payStatus;
             this.payAmount = payAmount;
+            this.remark = remark;
             this.createdAt = createdAt;
             this.paidAt = paidAt;
         }
@@ -355,6 +360,10 @@ public class OrderController {
             return payAmount;
         }
 
+        public String getRemark() {
+            return remark;
+        }
+
         public LocalDateTime getCreatedAt() {
             return createdAt;
         }
@@ -385,6 +394,7 @@ public class OrderController {
         private final Double deliveryLng;
         private final String contactName;
         private final String contactPhone;
+        private final String remark;
         private final Long deliveryStaffId;
         private final String deliveryStaffName;
         private final String deliveryStaffPhone;
@@ -414,6 +424,7 @@ public class OrderController {
                            Double deliveryLng,
                            String contactName,
                            String contactPhone,
+                           String remark,
                            Long deliveryStaffId,
                            String deliveryStaffName,
                            String deliveryStaffPhone,
@@ -442,6 +453,7 @@ public class OrderController {
             this.deliveryLng = deliveryLng;
             this.contactName = contactName;
             this.contactPhone = contactPhone;
+            this.remark = remark;
             this.deliveryStaffId = deliveryStaffId;
             this.deliveryStaffName = deliveryStaffName;
             this.deliveryStaffPhone = deliveryStaffPhone;
@@ -530,6 +542,10 @@ public class OrderController {
 
         public String getContactPhone() {
             return contactPhone;
+        }
+
+        public String getRemark() {
+            return remark;
         }
 
         public Long getDeliveryStaffId() {
