@@ -1,0 +1,453 @@
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.0)
+
+2025-12-22T22:05:07.309+08:00  INFO 23632 --- [takeout-backend] [           main] com.example.takeout.TakeoutApplication   : Starting TakeoutApplication using Java 23 with PID 23632 (C:\Users\jin\Desktop\软件编程与实践\takeout-backend\target\takeout-backend-0.0.1-SNAPSHOT.jar started by jin in C:\Users\jin\Desktop\软件编程与实践\takeout-backend)
+2025-12-22T22:05:07.312+08:00 DEBUG 23632 --- [takeout-backend] [           main] com.example.takeout.TakeoutApplication   : Running with Spring Boot v3.3.0, Spring v6.1.8
+2025-12-22T22:05:07.312+08:00  INFO 23632 --- [takeout-backend] [           main] com.example.takeout.TakeoutApplication   : No active profile set, falling back to 1 default profile: "default"
+2025-12-22T22:05:08.075+08:00  INFO 23632 --- [takeout-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-22T22:05:08.136+08:00  INFO 23632 --- [takeout-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 51 ms. Found 14 JPA repository interfaces.
+2025-12-22T22:05:08.941+08:00  INFO 23632 --- [takeout-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-12-22T22:05:08.954+08:00  INFO 23632 --- [takeout-backend] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-12-22T22:05:08.954+08:00  INFO 23632 --- [takeout-backend] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.24]
+2025-12-22T22:05:08.990+08:00  INFO 23632 --- [takeout-backend] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-12-22T22:05:08.990+08:00  INFO 23632 --- [takeout-backend] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1570 ms
+2025-12-22T22:05:09.198+08:00  INFO 23632 --- [takeout-backend] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-22T22:05:09.277+08:00  INFO 23632 --- [takeout-backend] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-12-22T22:05:09.342+08:00  INFO 23632 --- [takeout-backend] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-12-22T22:05:09.602+08:00  INFO 23632 --- [takeout-backend] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-22T22:05:09.627+08:00  INFO 23632 --- [takeout-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-12-22T22:05:09.754+08:00  INFO 23632 --- [takeout-backend] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1d55dd21
+2025-12-22T22:05:09.754+08:00  INFO 23632 --- [takeout-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-12-22T22:05:09.790+08:00  WARN 23632 --- [takeout-backend] [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-22T22:05:10.602+08:00  INFO 23632 --- [takeout-backend] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-22T22:05:10.717+08:00  INFO 23632 --- [takeout-backend] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-22T22:05:11.160+08:00  INFO 23632 --- [takeout-backend] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-22T22:05:12.111+08:00  WARN 23632 --- [takeout-backend] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-22T22:05:12.274+08:00 DEBUG 23632 --- [takeout-backend] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 58 mappings in 'requestMappingHandlerMapping'
+2025-12-22T22:05:12.396+08:00 DEBUG 23632 --- [takeout-backend] [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-12-22T22:05:12.456+08:00 DEBUG 23632 --- [takeout-backend] [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-12-22T22:05:12.499+08:00 DEBUG 23632 --- [takeout-backend] [           main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-12-22T22:05:12.632+08:00  INFO 23632 --- [takeout-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2025-12-22T22:05:12.650+08:00  INFO 23632 --- [takeout-backend] [           main] com.example.takeout.TakeoutApplication   : Started TakeoutApplication in 5.805 seconds (process running for 6.445)
+2025-12-22T22:05:25.183+08:00  INFO 23632 --- [takeout-backend] [nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-22T22:05:25.183+08:00  INFO 23632 --- [takeout-backend] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-12-22T22:05:25.188+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-12-22T22:05:25.189+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-12-22T22:05:25.189+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-12-22T22:05:25.189+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@9730004
+2025-12-22T22:05:25.194+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@1b7708d9
+2025-12-22T22:05:25.195+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-12-22T22:05:25.195+08:00  INFO 23632 --- [takeout-backend] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 7 ms
+2025-12-22T22:05:25.213+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/health", parameters={}
+2025-12-22T22:05:25.255+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.takeout.web.HealthController#health()
+2025-12-22T22:05:25.334+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-12-22T22:05:25.340+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Writing [{status=OK}]
+2025-12-22T22:05:25.376+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-12-22T22:05:25.431+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/dashboard", parameters={}
+2025-12-22T22:05:25.431+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.takeout.web.AdminDashboardController#dashboard(LocalDate, LocalDate)
+Hibernate: 
+    select
+        count(*) 
+    from
+        restaurants r1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        customers c1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        delivery_staff ds1_0
+Hibernate: 
+    select
+        count(co1_0.id) 
+    from
+        orders co1_0 
+    where
+        (
+            ? is null 
+            or co1_0.created_at>=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.created_at<=?
+        )
+Hibernate: 
+    select
+        coalesce(sum(co1_0.pay_amount), 0) 
+    from
+        orders co1_0 
+    where
+        co1_0.paid_at is not null 
+        and co1_0.paid_at between ? and ?
+Hibernate: 
+    select
+        coalesce(sum(co1_0.commission_amount), 0) 
+    from
+        orders co1_0 
+    where
+        co1_0.paid_at is not null 
+        and co1_0.paid_at between ? and ?
+Hibernate: 
+    select
+        co1_0.status,
+        count(co1_0.id) 
+    from
+        orders co1_0 
+    where
+        (
+            ? is null 
+            or co1_0.created_at>=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.created_at<=?
+        ) 
+    group by
+        co1_0.status
+Hibernate: 
+    select
+        co1_0.id,
+        co1_0.restaurant_id,
+        r1_0.name,
+        co1_0.customer_id,
+        c1_0.username,
+        co1_0.status,
+        co1_0.pay_status,
+        co1_0.pay_amount,
+        co1_0.created_at,
+        co1_0.paid_at 
+    from
+        orders co1_0 
+    join
+        restaurants r1_0 
+            on r1_0.id=co1_0.restaurant_id 
+    join
+        customers c1_0 
+            on c1_0.id=co1_0.customer_id 
+    where
+        (
+            ? is null 
+            or co1_0.status=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.pay_status=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.restaurant_id=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.customer_id=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.created_at>=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.created_at<=?
+        ) 
+    order by
+        9 desc 
+    limit
+        ?, ?
+2025-12-22T22:05:25.933+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-12-22T22:05:25.934+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [com.example.takeout.web.AdminDashboardController$DashboardResponse@72fb7434]
+2025-12-22T22:05:25.964+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-12-22T22:06:13.006+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/dashboard?start=2025-12-16&end=2025-12-22", parameters={masked}
+2025-12-22T22:06:13.006+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.takeout.web.AdminDashboardController#dashboard(LocalDate, LocalDate)
+Hibernate: 
+    select
+        count(*) 
+    from
+        restaurants r1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        customers c1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        delivery_staff ds1_0
+Hibernate: 
+    select
+        count(co1_0.id) 
+    from
+        orders co1_0 
+    where
+        (
+            ? is null 
+            or co1_0.created_at>=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.created_at<=?
+        )
+Hibernate: 
+    select
+        coalesce(sum(co1_0.pay_amount), 0) 
+    from
+        orders co1_0 
+    where
+        co1_0.paid_at is not null 
+        and co1_0.paid_at between ? and ?
+Hibernate: 
+    select
+        coalesce(sum(co1_0.commission_amount), 0) 
+    from
+        orders co1_0 
+    where
+        co1_0.paid_at is not null 
+        and co1_0.paid_at between ? and ?
+Hibernate: 
+    select
+        co1_0.status,
+        count(co1_0.id) 
+    from
+        orders co1_0 
+    where
+        (
+            ? is null 
+            or co1_0.created_at>=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.created_at<=?
+        ) 
+    group by
+        co1_0.status
+Hibernate: 
+    select
+        co1_0.id,
+        co1_0.restaurant_id,
+        r1_0.name,
+        co1_0.customer_id,
+        c1_0.username,
+        co1_0.status,
+        co1_0.pay_status,
+        co1_0.pay_amount,
+        co1_0.created_at,
+        co1_0.paid_at 
+    from
+        orders co1_0 
+    join
+        restaurants r1_0 
+            on r1_0.id=co1_0.restaurant_id 
+    join
+        customers c1_0 
+            on c1_0.id=co1_0.customer_id 
+    where
+        (
+            ? is null 
+            or co1_0.status=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.pay_status=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.restaurant_id=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.customer_id=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.created_at>=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.created_at<=?
+        ) 
+    order by
+        9 desc 
+    limit
+        ?, ?
+2025-12-22T22:06:13.098+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-12-22T22:06:13.104+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [com.example.takeout.web.AdminDashboardController$DashboardResponse@664170d0]
+2025-12-22T22:06:13.105+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-12-22T22:06:16.625+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/orders?page=1&size=20", parameters={masked}
+2025-12-22T22:06:16.627+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.takeout.web.OrderController#list(int, int, String, String, Long, Long, LocalDate, LocalDate)
+Hibernate: 
+    select
+        co1_0.id,
+        co1_0.restaurant_id,
+        r1_0.name,
+        co1_0.customer_id,
+        c1_0.username,
+        co1_0.status,
+        co1_0.pay_status,
+        co1_0.pay_amount,
+        co1_0.created_at,
+        co1_0.paid_at 
+    from
+        orders co1_0 
+    join
+        restaurants r1_0 
+            on r1_0.id=co1_0.restaurant_id 
+    join
+        customers c1_0 
+            on c1_0.id=co1_0.customer_id 
+    where
+        (
+            ? is null 
+            or co1_0.status=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.pay_status=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.restaurant_id=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.customer_id=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.created_at>=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.created_at<=?
+        ) 
+    order by
+        9 desc 
+    limit
+        ?, ?
+2025-12-22T22:06:16.647+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-12-22T22:06:16.657+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.example.takeout.web.OrderController$PageResponse@6d84902f]
+2025-12-22T22:06:16.657+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-12-22T22:06:18.272+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/dashboard?start=2025-12-16&end=2025-12-22", parameters={masked}
+2025-12-22T22:06:18.274+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.takeout.web.AdminDashboardController#dashboard(LocalDate, LocalDate)
+Hibernate: 
+    select
+        count(*) 
+    from
+        restaurants r1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        customers c1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        delivery_staff ds1_0
+Hibernate: 
+    select
+        count(co1_0.id) 
+    from
+        orders co1_0 
+    where
+        (
+            ? is null 
+            or co1_0.created_at>=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.created_at<=?
+        )
+Hibernate: 
+    select
+        coalesce(sum(co1_0.pay_amount), 0) 
+    from
+        orders co1_0 
+    where
+        co1_0.paid_at is not null 
+        and co1_0.paid_at between ? and ?
+Hibernate: 
+    select
+        coalesce(sum(co1_0.commission_amount), 0) 
+    from
+        orders co1_0 
+    where
+        co1_0.paid_at is not null 
+        and co1_0.paid_at between ? and ?
+Hibernate: 
+    select
+        co1_0.status,
+        count(co1_0.id) 
+    from
+        orders co1_0 
+    where
+        (
+            ? is null 
+            or co1_0.created_at>=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.created_at<=?
+        ) 
+    group by
+        co1_0.status
+Hibernate: 
+    select
+        co1_0.id,
+        co1_0.restaurant_id,
+        r1_0.name,
+        co1_0.customer_id,
+        c1_0.username,
+        co1_0.status,
+        co1_0.pay_status,
+        co1_0.pay_amount,
+        co1_0.created_at,
+        co1_0.paid_at 
+    from
+        orders co1_0 
+    join
+        restaurants r1_0 
+            on r1_0.id=co1_0.restaurant_id 
+    join
+        customers c1_0 
+            on c1_0.id=co1_0.customer_id 
+    where
+        (
+            ? is null 
+            or co1_0.status=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.pay_status=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.restaurant_id=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.customer_id=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.created_at>=?
+        ) 
+        and (
+            ? is null 
+            or co1_0.created_at<=?
+        ) 
+    order by
+        9 desc 
+    limit
+        ?, ?
+2025-12-22T22:06:18.322+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-12-22T22:06:18.322+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [com.example.takeout.web.AdminDashboardController$DashboardResponse@333071cb]
+2025-12-22T22:06:18.333+08:00 DEBUG 23632 --- [takeout-backend] [nio-8081-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK

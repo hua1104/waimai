@@ -1,0 +1,63 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: takeout-backend
+  datasource:
+    url: jdbc:mysql://localhost:3306/takeout?useSSL=false&serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: "3"
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  file:
+    name: logs/spring.log
+  level:
+    org.springframework.web: DEBUG
+    com.example.takeout: DEBUG
+
+baidu:
+  map:
+    ak: ${BAIDU_MAP_AK:}
+
+# Public base URL for QR codes (when phone scans the QR, it must be reachable from the phone)
+app:
+  publicBaseUrl: ${APP_PUBLIC_BASE_URL:http://localhost:8081}
+
+# WeChat Pay (v3) - Native Pay (scan QR code)
+# Enable by setting WECHATPAY_ENABLED=true and filling the rest values.
+wechatpay:
+  enabled: ${WECHATPAY_ENABLED:false}
+  appId: ${WECHATPAY_APP_ID:}
+  mchId: ${WECHATPAY_MCH_ID:}
+  apiV3Key: ${WECHATPAY_API_V3_KEY:}
+  mchSerialNo: ${WECHATPAY_MCH_SERIAL_NO:}
+  privateKeyPath: ${WECHATPAY_PRIVATE_KEY_PATH:}
+  notifyUrl: ${WECHATPAY_NOTIFY_URL:http://localhost:8081/api/wechatpay/notify}
+
+# 配送分配模式：
+# - HALL：订单支付后进入“接单大厅”，等待骑手抢单（推荐用于演示抢单）
+# - AUTO：订单支付后自动按“距离+负载”分配骑手
+delivery:
+  assignment:
+    mode: HALL
+
+order:
+  timeout:
+    # 未支付订单超时自动取消（分钟）
+    unpaid-minutes: 15
+    # 已支付但无人抢单，自动派单给骑手（分钟，0 表示禁用；仅 delivery.assignment.mode=HALL 时生效）
+    paid-unassigned-auto-assign-minutes: 5
+    # 已支付但无人接单超时自动取消并退款（分钟，0 表示禁用）
+    paid-unassigned-minutes: 0
+    # 定时任务执行间隔（毫秒）
+    job-interval-ms: 60000

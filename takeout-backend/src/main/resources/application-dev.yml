@@ -1,0 +1,4 @@
+baidu:
+  map:
+    ak: ${BAIDU_MAP_AK:}
+
